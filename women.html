@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Women's Collection - PRADA</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #000;
+            background: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #fff;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .top-banner {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 8px;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: opacity 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        .nav-links a.active {
+            border-bottom: 2px solid #000;
+            padding-bottom: 5px;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 25px;
+            font-size: 18px;
+        }
+
+        .nav-icons span {
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .nav-icons span:hover {
+            opacity: 0.6;
+        }
+
+        /* Hero Banner */
+        .hero-banner {
+            margin-top: 110px;
+            height: 70vh;
+            background: url('https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1920&h=1080&fit=crop') center/cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero-content h1 {
+            font-size: 64px;
+            letter-spacing: 10px;
+            font-weight: 300;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 18px;
+            letter-spacing: 3px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+
+        /* Category Navigation */
+        .category-nav {
+            background: #f9f9f9;
+            padding: 30px 50px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .category-nav a {
+            text-decoration: none;
+            color: #666;
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 10px 20px;
+            transition: all 0.3s;
+            border: 1px solid transparent;
+        }
+
+        .category-nav a:hover,
+        .category-nav a.active {
+            color: #000;
+            border: 1px solid #000;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 60px 50px;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            letter-spacing: 6px;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .section-subtitle {
+            font-size: 15px;
+            color: #666;
+            letter-spacing: 2px;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 80px;
+        }
+
+        .product-card {
+            background: #fff;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+            border: 1px solid #f0f0f0;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            position: relative;
+            background: #f5f5f5;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #000;
+            color: #fff;
+            padding: 5px 12px;
+            font-size: 11px;
+            letter-spacing: 1px;
+            z-index: 2;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            font-size: 11px;
+            color: #999;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 16px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .product-description {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .product-colors {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .color-swatch {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #e0e0e0;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .color-swatch:hover {
+            transform: scale(1.2);
+            border-color: #000;
+        }
+
+        /* Featured Banner */
+        .featured-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            margin: 80px 0;
+            min-height: 500px;
+            background: #000;
+        }
+
+        .featured-image {
+            background: url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&h=600&fit=crop') center/cover;
+        }
+
+        .featured-text {
+            padding: 80px 60px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-text h2 {
+            font-size: 42px;
+            letter-spacing: 5px;
+            margin-bottom: 25px;
+            font-weight: 300;
+        }
+
+        .featured-text p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 35px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 40px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            letter-spacing: 2px;
+            font-size: 12px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            border: 2px solid #fff;
+            align-self: flex-start;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: #fff;
+        }
+
+        /* Filter Section */
+        .filter-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .filter-left {
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        .filter-right {
+            display: flex;
+            gap: 20px;
+        }
+
+        .filter-dropdown {
+            padding: 10px 20px;
+            border: 1px solid #ddd;
+            background: #fff;
+            font-size: 13px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-dropdown:hover {
+            border-color: #000;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: #f5f5f5;
+            padding: 80px 50px;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 36px;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .newsletter p {
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            opacity: 0.7;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .newsletter-form button {
+            padding: 15px 40px;
+            background: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #333;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #fff;
+            padding: 60px 50px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+            max-width: 1400px;
+            margin: 0 auto 40px;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #999;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        /* Mobile Menu */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: #000;
+            transition: all 0.3s;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 24px;
+                letter-spacing: 4px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero-banner {
+                height: 50vh;
+            }
+
+            .hero-content h1 {
+                font-size: 36px;
+                letter-spacing: 6px;
+            }
+
+            .category-nav {
+                padding: 20px;
+                gap: 15px;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-banner {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-text {
+                padding: 40px 20px;
+            }
+
+            .filter-section {
+                flex-direction: column;
+                gap: 20px;
+                align-items: flex-start;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-banner">
+            FREE SHIPPING ON ALL ORDERS | EDUCATIONAL CLONE PROJECT
+        </div>
+        <nav>
+            <div class="logo" onclick="window.location.href='index.html'">PRADA</div>
+            <ul class="nav-links">
+                <li><a href="prada.html">New Arrivals</a></li>
+                <li><a href="women.html" class="active">Women</a></li>
+                <li><a href="men.html">Men</a></li>
+                <li><a href="bags.html">Bags</a></li>
+                <li><a href="shoes.html">Shoes</a></li>
+            </ul>
+            <div class="nav-icons">
+                <span onclick="alert('Search functionality')">🔍</span>
+                <span onclick="alert('Account login')">👤</span>
+                <span onclick="alert('Shopping cart')">🛍️</span>
+            </div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+        <div class="hero-content">
+            <h1>WOMEN'S COLLECTION</h1>
+            <p>Elegance Redefined</p>
+        </div>
+    </section>
+
+    <!-- Category Navigation -->
+    <div class="category-nav">
+        <a href="#all" class="active">All Items</a>
+        <a href="#clothing">Clothing</a>
+        <a href="#bags">Bags & Accessories</a>
+        <a href="#shoes">Shoes</a>
+        <a href="#jewelry">Jewelry</a>
+        <a href="#ready-to-wear">Ready-to-Wear</a>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-left">
+                Showing <strong>24</strong> products
+            </div>
+            <div class="filter-right">
+                <select class="filter-dropdown">
+                    <option>Sort By: Featured</option>
+                    <option>Price: Low to High</option>
+                    <option>Price: High to Low</option>
+                    <option>Newest First</option>
+                </select>
+                <select class="filter-dropdown">
+                    <option>All Sizes</option>
+                    <option>XS</option>
+                    <option>S</option>
+                    <option>M</option>
+                    <option>L</option>
+                    <option>XL</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Ready-to-Wear Section -->
+        <div class="section-header">
+            <h2 class="section-title">READY-TO-WEAR</h2>
+            <p class="section-subtitle">Sophisticated pieces for every occasion</p>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">NEW</span>
+                    <img src="https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=600&fit=crop" alt="Silk Dress">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Ready-to-Wear</div>
+                    <div class="product-name">SILK EVENING DRESS</div>
+                    <div class="product-description">Flowing silk dress with elegant draping</div>
+                    <div class="product-price">$3,200</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #000;"></div>
+                        <div class="color-swatch" style="background: #8B4513;"></div>
+                        <div class="color-swatch" style="background: #2F4F4F;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=400&h=600&fit=crop" alt="Wool Coat">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Outerwear</div>
+                    <div class="product-name">WOOL BELTED COAT</div>
+                    <div class="product-description">Classic winter coat in virgin wool</div>
+                    <div class="product-price">$4,500</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #F5F5DC;"></div>
+                        <div class="color-swatch" style="background: #000;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">BESTSELLER</span>
+                    <img src="https://images.unsplash.com/photo-1539533018447-63fcce2678e3?w=400&h=600&fit=crop" alt="Blazer">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Tailored</div>
+                    <div class="product-name">SATIN BLAZER</div>
+                    <div class="product-description">Double-breasted blazer with satin finish</div>
+                    <div class="product-price">$2,850</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #000;"></div>
+                        <div class="color-swatch" style="background: #4B0082;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=400&h=600&fit=crop" alt="Skirt">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Ready-to-Wear</div>
+                    <div class="product-name">PLEATED MIDI SKIRT</div>
+                    <div class="product-description">Elegant pleated design in fine fabric</div>
+                    <div class="product-price">$1,650</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #FFB6C1;"></div>
+                        <div class="color-swatch" style="background: #000;"></div>
+                        <div class="color-swatch" style="background: #FFF;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Banner -->
+        <div class="featured-banner">
+            <div class="featured-image"></div>
+            <div class="featured-text">
+                <h2>FALL COLLECTION</h2>
+                <p>Discover the latest styles from our Fall/Winter collection. Timeless pieces crafted with exceptional attention to detail and the finest materials.</p>
+                <a href="#" class="cta-button">Shop Collection</a>
+            </div>
+        </div>
+
+        <!-- Bags & Accessories Section -->
+        <div class="section-header">
+            <h2 class="section-title">BAGS & ACCESSORIES</h2>
+            <p class="section-subtitle">Complete your look with iconic pieces</p>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">ICONIC</span>
+                    <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=600&fit=crop" alt="Galleria Bag">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Bags</div>
+                    <div class="product-name">GALLERIA MEDIUM</div>
+                    <div class="product-description">Saffiano leather with gold hardware</div>
+                    <div class="product-price">$2,850</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #000;"></div>
+                        <div class="color-swatch" style="background: #8B4513;"></div>
+                        <div class="color-swatch" style="background: #C0C0C0;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=400&h=600&fit=crop" alt="Clutch">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Evening</div>
+                    <div class="product-name">SATIN CLUTCH</div>
+                    <div class="product-description">Elegant evening clutch with chain strap</div>
+                    <div class="product-price">$1,250</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #000;"></div>
+                        <div class="color-swatch" style="background: #FFD700;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://www.prada.com/content/dam/pradabkg_products/S/SPR/SPR09Z/E1ABF05S0/SPR09Z_E1AB_F05S0_C_054_SLF.jpg/_jcr_content/renditions/cq5dam.web.hebebed.800.800.jpg" alt="Sunglasses">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Accessories</div>
+                    <div class="product-name">CINEMA SUNGLASSES</div>
+                    <div class="product-description">Acetate frames with UV protection</div>
+                    <div class="product-price">$485</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #000;"></div>
+                        <div class="color-swatch" style="background: #8B4513;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">NEW</span>
+                    <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=400&h=600&fit=crop" alt="Belt">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Accessories</div>
+                    <div class="product-name">LEATHER BELT</div>
+                    <div class="product-description">Classic design with logo buckle</div>
+                    <div class="product-price">$595</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #000;"></div>
+                        <div class="color-swatch" style="background: #8B4513;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shoes Section -->
+        <div class="section-header">
+            <h2 class="section-title">FOOTWEAR</h2>
+            <p class="section-subtitle">Step into elegance</p>
+        </div>
+
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=600&fit=crop" alt="Pumps">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Heels</div>
+                    <div class="product-name">PATENT PUMPS</div>
+                    <div class="product-description">Classic pointed-toe pumps in patent leather</div>
+                    <div class="product-price">$950</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #000;"></div>
+                        <div class="color-swatch" style="background: #FF0000;"></div>
+                        <div class="color-swatch" style="background: #FFF;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">BESTSELLER</span>
+                    <img src="https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=400&h=600&fit=crop" alt="Boots">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Boots</div>
+                    <div class="product-name">SUEDE ANKLE BOOTS</div>
+                    <div class="product-description">Elegant ankle boots in soft suede</div>
+                    <div class="product-price">$1,150</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #000;"></div>
+                        <div class="color-swatch" style="background: #8B4513;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1603808033192-082d6919d3e1?w=400&h=600&fit=crop" alt="Loafers">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Flats</div>
+                    <div class="product-name">LEATHER LOAFERS</div>
+                    <div class="product-description">Comfortable loafers with signature detail</div>
+                    <div class="product-price">$850</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #000;"></div>
+                        <div class="color-swatch" style="background: #8B4513;"></div>
+                        <div class="color-swatch" style="background: #FFF;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <span class="product-badge">NEW</span>
+                    <img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&h=600&fit=crop" alt="Sneakers">
+                </div>
+                <div class="product-info">
+                    <div class="product-category">Sneakers</div>
+                    <div class="product-name">LEATHER SNEAKERS</div>
+                    <div class="product-description">Contemporary design with logo detail</div>
+                    <div class="product-price">$795</div>
+                    <div class="product-colors">
+                        <div class="color-swatch" style="background: #FFF;"></div>
+                        <div class="color-swatch" style="background: #000;"></div>
+                        <div class="color-swatch" style="background: #FFB6C1;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h2>STAY CONNECTED</h2>
+        <p>Subscribe to receive exclusive updates and offers</p>
+        <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+            <input type="email" placeholder="Enter your email" required>
+            <button type

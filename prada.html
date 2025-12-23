@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PRADA - Clone for Learning</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            color: #000;
+            background: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: #fff;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .top-banner {
+            background: #000;
+            color: #fff;
+            text-align: center;
+            padding: 8px;
+            font-size: 12px;
+            letter-spacing: 1px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 50px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 8px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #000;
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.6;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 25px;
+            font-size: 18px;
+        }
+
+        .nav-icons span {
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .nav-icons span:hover {
+            opacity: 0.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 110px;
+            position: relative;
+            height: 90vh;
+            background: url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1920&h=1080&fit=crop') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out;
+            color: #fff;
+        }
+
+        .hero h1 {
+            font-size: 72px;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
+            font-weight: 300;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 18px;
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 15px 50px;
+            background: #fff;
+            color: #000;
+            text-decoration: none;
+            letter-spacing: 2px;
+            font-size: 12px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            border: 2px solid #fff;
+        }
+
+        .cta-button:hover {
+            background: transparent;
+            color: #fff;
+        }
+
+        /* Collection Grid */
+        .collection {
+            padding: 80px 50px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            letter-spacing: 6px;
+            margin-bottom: 60px;
+            font-weight: 300;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .grid-item {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            aspect-ratio: 3/4;
+            background: #f0f0f0;
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .grid-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            z-index: 1;
+        }
+
+        .grid-item:hover::before {
+            opacity: 1;
+        }
+
+        .grid-item-content {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            color: #fff;
+            z-index: 2;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s;
+        }
+
+        .grid-item:hover .grid-item-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .grid-item h3 {
+            font-size: 24px;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .grid-item p {
+            font-size: 14px;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        /* Featured Product */
+        .featured {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+            background: #000;
+            color: #fff;
+        }
+
+        .featured-image {
+            background: url('https://images.unsplash.com/photo-1591561954557-26941169b49e?w=800&h=600&fit=crop') center/cover;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .featured-image::after {
+            content: 'PRADA';
+            position: absolute;
+            font-size: 120px;
+            letter-spacing: 20px;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+        }
+
+        .featured-text {
+            padding: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .featured-text h2 {
+            font-size: 48px;
+            letter-spacing: 6px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .featured-text p {
+            font-size: 16px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .featured-text .cta-button {
+            align-self: flex-start;
+        }
+
+        /* New Arrivals */
+        .new-arrivals {
+            padding: 80px 50px;
+            background: #f9f9f9;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: #fff;
+            overflow: hidden;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h4 {
+            font-size: 16px;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .product-info p {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .product-price {
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background: #f5f5f5;
+            padding: 80px 50px;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 36px;
+            letter-spacing: 5px;
+            margin-bottom: 20px;
+            font-weight: 300;
+        }
+
+        .newsletter p {
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            opacity: 0.7;
+        }
+
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .newsletter-form button {
+            padding: 15px 40px;
+            background: #000;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .newsletter-form button:hover {
+            background: #333;
+        }
+
+        /* Footer */
+        footer {
+            background: #000;
+            color: #fff;
+            padding: 60px 50px 30px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h4 {
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            font-weight: 400;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column a {
+            color: #999;
+            text-decoration: none;
+            font-size: 12px;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #333;
+            padding-top: 30px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Menu Toggle */
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: #000;
+            transition: all 0.3s;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 15px 20px;
+            }
+
+            .logo {
+                font-size: 24px;
+                letter-spacing: 4px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+                letter-spacing: 6px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .featured {
+                grid-template-columns: 1fr;
+            }
+
+            .featured-text {
+                padding: 40px 20px;
+            }
+
+            .collection, .new-arrivals {
+                padding: 40px 20px;
+            }
+
+            .section-title {
+                font-size: 32px;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-banner">
+            FREE SHIPPING ON ALL ORDERS | EDUCATIONAL CLONE PROJECT
+        </div>
+        <nav>
+            <div class="logo">PRADA</div>
+            <ul class="nav-links">
+                <li><a href="#new">New Arrivals</a></li>
+                <li><a href="women.html">Women</a></li>
+                <li><a href="#men">Men</a></li>
+                <li><a href="#bags">Bags</a></li>
+                <li><a href="#shoes">Shoes</a></li>
+            </ul>
+            <div class="nav-icons">
+                <span onclick="alert('Search functionality')">🔍</span>
+                <span onclick="alert('Account login')">👤</span>
+                <span onclick="alert('Shopping cart')">🛍️</span>
+            </div>
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>FALL/WINTER 2025</h1>
+            <p>THE NEW COLLECTION</p>
+            <a href="#collection" class="cta-button">Explore Now</a>
+        </div>
+    </section>
+
+    <!-- Collection Grid -->
+    <section class="collection" id="collection">
+        <h2 class="section-title">FEATURED COLLECTIONS</h2>
+        <div class="grid">
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&h=800&fit=crop" alt="Women's Bags">
+                <div class="grid-item-content">
+                    <h3>WOMEN'S BAGS</h3>
+                    <p>Timeless elegance</p>
+                </div>
+            </div>
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&h=800&fit=crop" alt="Men's Shoes">
+                <div class="grid-item-content">
+                    <h3>MEN'S SHOES</h3>
+                    <p>Sophisticated style</p>
+                </div>
+            </div>
+            <div class="grid-item">
+                <img src="https://images.unsplash.com/photo-1611652022419-a9419f74343d?w=600&h=800&fit=crop" alt="Accessories">
+                <div class="grid-item-content">
+                    <h3>ACCESSORIES</h3>
+                    <p>Complete your look</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Product -->
+    <section class="featured">
+        <div class="featured-image"></div>
+        <div class="featured-text">
+            <h2>ICONIC DESIGN</h2>
+            <p>Discover the essence of Italian craftsmanship. Each piece tells a story of heritage, innovation, and timeless elegance that has defined luxury fashion for generations.</p>
+            <a href="#" class="cta-button">Shop Collection</a>
+        </div>
+    </section>
+
+    <!-- New Arrivals -->
+    <section class="new-arrivals" id="new">
+        <h2 class="section-title">NEW ARRIVALS</h2>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=400&h=600&fit=crop" alt="Leather Bag">
+                </div>
+                <div class="product-info">
+                    <h4>GALLERIA BAG</h4>
+                    <p>Saffiano leather</p>
+                    <div class="product-price">$2,850</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&h=600&fit=crop" alt="High Heels">
+                </div>
+                <div class="product-info">
+                    <h4>PATENT PUMPS</h4>
+                    <p>Classic black</p>
+                    <div class="product-price">$950</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://www.prada.com/content/dam/pradanux_products/S/SPR/SPR19W/E1ABF05S0/SPR19W_E1AB_F05S0_C_052_SLF.png/_jcr_content/renditions/cq5dam.web.hebebed.1000.1000.jpg" alt="Sunglasses">
+                </div>
+                <div class="product-info">
+                    <h4>CINEMA SUNGLASSES</h4>
+                    <p>Acetate frames</p>
+                    <div class="product-price">$485</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=400&h=600&fit=crop" alt="Wallet">
+                </div>
+                <div class="product-info">
+                    <h4>SAFFIANO WALLET</h4>
+                    <p>Compact design</p>
+                    <div class="product-price">$625</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <h2>STAY CONNECTED</h2>
+        <p>Subscribe to receive exclusive updates and offers</p>
+        <form class="newsletter-form" onsubmit="handleSubscribe(event)">
+            <input type="email" placeholder="Enter your email" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h4>CUSTOMER CARE</h4>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping & Returns</a></li>
+                    <li><a href="#">Size Guide</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>ABOUT PRADA</h4>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Sustainability</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>LEGAL</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Cookie Policy</a></li>
+                    <li><a href="#">Accessibility</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>FOLLOW US</h4>
+                <ul>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 PRADA - Educational Clone Project | Not affiliated with official PRADA brand</p>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            if (navLinks.style.display === 'flex') {
+                navLinks.style.display = 'none';
+            } else {
+                navLinks.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '100%';
+                navLinks.style.left = '0';
+                navLinks.style.right = '0';
+                navLinks.style.background = '#fff';
+                navLinks.style.padding = '20px';
+                navLinks.style.boxShadow = '0 5px 10px rgba(0,0,0,0.1)';
+            }
+        }
+
+        function handleSubscribe(e) {
+            e.preventDefault();
+            alert('Thank you for subscribing! (Demo only)');
+            e.target.reset();
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s ease-out forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.grid-item, .featured, .newsletter, .product-card').forEach(el => {
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
